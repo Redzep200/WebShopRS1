@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-4" style="width: 50vh;">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Registracija</h3>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-danger" *ngIf="registrationError">
+            {{ registrationError }}
+          </div>
+          <div class="alert alert-success" *ngIf="registrationMessage">
+            {{ registrationMessage }}
+          </div>
+          <form [formGroup]="registerForm">
+            <div class="input-field" [class.error]="registerForm.controls['name'].dirty && registerForm.hasError('required','name')">
+              <span class="fa fa-user p-2"></span>
+              <label for="name">Ime</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                formControlName="name"
+                [(ngModel)]="name"
+              />
+              <small *ngIf="registerForm.controls['name'].dirty && registerForm.hasError('required','name')" class="text-danger">Ime je obavezno!</small>
+            </div>
+            <div class="input-field" [class.error]="registerForm.controls['surname'].dirty && registerForm.hasError('required','surname')">
+              <span class="fa fa-user p-2"></span>
+              <label for="surname">Prezime</label>
+              <input
+                type="text"
+                class="form-control"
+                id="surname"
+                name="surname"
+                formControlName="surname"
+                [(ngModel)]="surname"
+              />
+              <small *ngIf="registerForm.controls['surname'].dirty && registerForm.hasError('required','surname')" class="text-danger">Prezime je obavezno!</small>
+            </div>
+            <div class="input-field" [class.error]="registerForm.controls['email'].dirty && registerForm.hasError('required','email')">
+              <span class="fa fa-envelope p-2"></span>
+              <label for="email">E-mail</label>
+              <input
+                type="text"
+                class="form-control"
+                id="email"
+                name="email"
+                formControlName="email"
+                [(ngModel)]="email"
+              />
+              <small *ngIf="registerForm.controls['email'].dirty && registerForm.hasError('required','email')" class="text-danger">E-mail je obavezan!</small>
+            </div>
+            <div class="input-field" [class.error]="registerForm.controls['username'].dirty && registerForm.hasError('required','username')">
+              <span class="fa fa-user p-2"></span>
+              <label for="username">Korisničko ime</label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                name="username"
+                formControlName="username"
+                [(ngModel)]="username"
+              />
+              <small *ngIf="registerForm.controls['username'].dirty && registerForm.hasError('required','username')" class="text-danger">Korisničko ime je obavezno!</small>
+            </div>
+            <div class="input-field" [class.error]="registerForm.controls['password'].dirty && registerForm.hasError('required','password')">
+              <span class="fa fa-lock p-2"></span>
+              <label for="password">Lozinka</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                formControlName="password"
+                [(ngModel)]="password"
+              />
+              <small *ngIf="registerForm.controls['password'].dirty && registerForm.hasError('required','password')" class="text-danger">Lozinka je obavezna!</small>
+            </div>
+            <div class="form-group text-center">
+              <button type="submit" id="dugme" [disabled]="registerForm.invalid" class="btn btn-primary btn-block" (click)="register()">
+                Registruj se
+              </button>
+            </div>
+          </form>
+          <div class="text-center">
+            <div class="text-muted">Imate račun? <a style="text-decoration: none;" routerLink="/login">Logirajte se!</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

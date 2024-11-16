@@ -1,0 +1,123 @@
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container-fluid d-flex justify-content-between align-items-center m-0">
+    <a class="navbar-brand" (click)="navigateToShop()">
+      <img src="/assets/images/logo.png" alt="Logo" height="30px" />
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 custom-nav">
+        <li class="nav-item">
+          <a
+            class="nav-link custom-nav-link"
+            [ngClass]="{'router-link-active': activeLink === 'shop'}"
+            (click)="navigateToShop()"
+          >
+            Shop
+          </a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="isLoggedIn"
+            class="nav-link custom-nav-link"
+            [ngClass]="{'router-link-active': activeLink === 'orders'}"
+            (click)="navigateToOrders()"
+          >
+            {{'ORDERS' | translate}}
+          </a>
+        </li>
+        <li *ngIf="isAdmin || isSistemAdmin" class="nav-item">
+          <a
+            class="nav-link custom-nav-link"
+            [ngClass]="{'router-link-active': activeLink === 'dashboard'}"
+            (click)="navigateToDashboard()"
+          >
+            {{'DASHBOARD' | translate}}
+          </a>
+        </li>
+        <li *ngIf="isAdmin || isSistemAdmin" class="nav-item">
+          <a
+            class="nav-link custom-nav-link"
+            [ngClass]="{'router-link-active': activeLink === 'coupons'}"
+            (click)="navigateToCoupons()"
+          >
+          {{'COUPONS' | translate}}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link custom-nav-link"
+            [ngClass]="{'router-link-active': activeLink === 'visit-us'}"
+            (click)="navigateToVisitUs()"
+          >
+            {{'VISITUS' |translate}}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <span class="flag-icon fi fi-gb" (click)="useLanguage('en')"></span>
+  <span class="flag-icon fi fi-ba" (click)="useLanguage('bs')"></span>
+    
+
+    <div class="d-flex align-items-center">
+      <div class="position-relative" #cartIconContainer>
+        <a class="position-relative" (click)="toggleCart()" #cartIcon>
+          <i class="fa fa-shopping-cart fa-2x mx-3 text-light"></i>
+          <div class="cart-no">{{ cartItemCount }}</div>
+        </a>
+      </div>
+
+      <div class="ime" *ngIf="isLoggedIn; else authLinks">
+        {{'WELCOME' | translate}}, {{ userName }}
+        <button class="btn btn-outline-primary me-2" (click)="logout()">
+          {{'LOGOUT' | translate}}
+        </button>
+      </div>
+
+      <button
+        class="btn btn-outline-primary me-2"
+        *ngIf="isAdmin || isSistemAdmin"
+        (click)="isAdmin ? openAdminPanel() : openSistemAdminPanel()"
+      >
+        Admin Panel
+      </button>
+
+  <button
+    class="btn btn-outline-primary me-2 position-relative"
+    *ngIf="isSupport || isCustomer"
+    (click)="openMessages()"
+>
+    <i class="fa fa-envelope"></i>
+    <span *ngIf="isSupport && activeQuestionCount > 0" 
+      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+      [@badgeAnimation]="activeQuestionCount">
+  {{ activeQuestionCount }}
+</span>
+
+  </button>
+
+      <ng-template #authLinks>
+        <button
+          class="btn btn-outline-primary me-2"
+          mat-button
+          (click)="openLoginDialog()"
+        >
+          {{'LOGIN' |translate}}
+        </button>
+        <button (click)="openRegisterDialog()" class="btn btn-outline-primary me-2">{{'SIGN UP' |translate}}</button>
+      </ng-template>
+    </div>
+  </div>
+</nav>
+

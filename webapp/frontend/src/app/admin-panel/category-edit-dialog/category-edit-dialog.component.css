@@ -1,0 +1,100 @@
+.edit-dialog {
+  max-width: 400px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  padding: 25px;
+  background-color: #19202A;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+}
+
+.edit-dialog h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.edit-dialog .form-group {
+  margin-bottom: 20px;
+}
+
+.edit-dialog label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #d0d0d0;
+}
+
+.edit-dialog input,
+.edit-dialog select,
+.edit-dialog textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: #3a4050;
+  border: 1px solid #4a5060;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.edit-dialog textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.edit-dialog .form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.edit-dialog button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.edit-dialog button[type="button"] {
+  background-color: #dc3545;
+  color: white;
+}
+
+.edit-dialog button[type="button"]:hover {
+  background-color: #c82333;
+}
+
+.edit-dialog button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-dialog button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.edit-dialog select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position-x: 98%;
+  background-position-y: 50%;
+}
+
+@media (max-width: 600px) {
+  .edit-dialog {
+    padding: 15px;
+  }
+
+  .edit-dialog .form-actions {
+    flex-direction: column;
+  }
+
+  .edit-dialog button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

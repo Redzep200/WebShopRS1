@@ -1,0 +1,29 @@
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+html,
+body {
+  height: 100%;
+  background-color: #ECECEC;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.ngx-slider .ngx-slider-pointer,
+.ngx-slider .ngx-slider-pointer-min,
+.ngx-slider .ngx-slider-pointer-max {
+  background-color: #007bff !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

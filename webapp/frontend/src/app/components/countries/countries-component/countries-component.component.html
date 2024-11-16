@@ -1,0 +1,60 @@
+<p>countries-component works!</p>
+<div>
+<label for="search">Pretraži:</label>
+  <input type="text" placeholder="Pretraga..." id="search" name="search" [(ngModel)]="pretraga" (ngModelChange)="filterCountries()">
+</div> 
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Država</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of filteredCountries">
+        <td>{{item.name}}</td>
+        <td>
+          <button (click)="deleteCountry(item)"class="btn btn-outline-danger">Obriši</button>
+        </td>
+        <td>
+          <button (click)="editCountry(item)" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#detalji">Detalji</button>
+        </td>
+      </tr>
+     
+    </tbody>
+  </table>
+<button data-bs-toggle="modal" data-bs-target="#kreiraj">Kreiraj državu</button>
+  <div class="modal fade" id="detalji" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="countryForEdit!=null">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Uredi državu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Država: <input [(ngModel)]="countryForEdit.name"><br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvori</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveChanges()">Spasi promjene</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="kreiraj" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Kreiraj državu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Naziv: <br><input [(ngModel)]="newCountryName">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Zatvori</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="createCountry()">Kreiraj</button>
+        </div>
+      </div>
+    </div>
+  </div>

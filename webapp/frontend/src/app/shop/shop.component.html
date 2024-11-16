@@ -1,0 +1,74 @@
+<div class="sidebar">
+  <h3>FILTER</h3>
+  
+  <form [formGroup]="filterForm">
+    <div class="search-box">
+      <input formControlName="productName" placeholder="{{'SEARCH' | translate}}">
+      <mat-icon class="search-icon">search</mat-icon>
+    </div>
+
+    <hr>
+      
+    <div class="filter-section">
+      <h4>{{'CATEGORY' | translate}}</h4>
+      <div class="filter-option">
+        <label>
+          <input type="radio" formControlName="categoryId" [value]="null" class="filter-input">
+          <span class="filter-label">{{'ALL CATEGORIES' | translate}}</span>
+        </label>
+      </div>
+      <div *ngFor="let category of categories" class="filter-option">
+        <label>
+          <input type="radio" formControlName="categoryId" [value]="category.id" class="filter-input">
+          <span class="filter-label">{{category.name}}</span>
+        </label>
+      </div>
+    </div>
+
+    <hr>
+    
+    <div class="filter-section">
+      <h4>{{'MANUFACTURER' | translate}}</h4>
+      <div class="filter-option">
+        <label>
+          <input type="radio" formControlName="manufacturerId" [value]="null" class="filter-input">
+          <span class="filter-label">{{'ALL MANUFACTURERS' | translate}}</span>
+        </label>
+      </div>
+      <div *ngFor="let manufacturer of manufacturers" class="filter-option">
+        <label>
+          <input type="radio" formControlName="manufacturerId" [value]="manufacturer.id" class="filter-input">
+          <span class="filter-label">{{manufacturer.name}}</span>
+        </label>
+      </div>
+    </div>   
+  <hr>
+    <div class="filter-section">
+      <h4>{{'PRICE RANGE' | translate}}</h4>
+      <div class="custom-slider">
+      <ngx-slider
+        [(value)]="minPrice"
+        [(highValue)]="maxPrice"
+        [options]="priceOptions"
+        (valueChange)="onSliderChange($event)"
+        (highValueChange)="onSliderChange($event, true)">       
+      </ngx-slider>
+    </div>
+      <div class="price-inputs">
+        <input type="number" formControlName="minPrice" placeholder="£0" (input)="onPriceInputChange('minPrice', $event)">
+        <input type="number" formControlName="maxPrice" placeholder="£500" (input)="onPriceInputChange('maxPrice', $event)">
+      </div>
+    </div>
+    <hr>   
+    <button class="btn btn-primary w-100 mt-3" (click)="resetFilters()">{{'RESET FILTERS' | translate}}</button>
+  </form>
+</div>
+
+<div class="products-container">
+  <p *ngIf="products.length > 0">{{products.length}} {{'PRODUCTS FOUND' | translate}} </p>
+  <div class="row">
+    <div class="col-md-12 product-container">
+      <app-product-item *ngFor="let item of products" [product]="item"></app-product-item>
+    </div>
+  </div>
+</div>

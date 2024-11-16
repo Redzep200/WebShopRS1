@@ -1,0 +1,67 @@
+<div class="support-messages-container">
+  <h2>Customer Support Messages</h2>
+
+  <div class="search-container">
+    <input 
+      type="text" 
+      [(ngModel)]="searchTerm" 
+      (input)="onSearch()"
+      placeholder="{{'Search by customer name' |translate}}..."
+    >
+    <input 
+    type="date" 
+    [(ngModel)]="startDate" 
+    (change)="onDateSearch()"
+  >
+  <input 
+    type="date" 
+    [(ngModel)]="endDate" 
+    (change)="onDateSearch()"
+  >
+
+  </div>
+
+  <div class="message-section">
+    <h3>{{'OPEN MESSAGES' | translate}}</h3>
+    <div *ngFor="let message of openMessages" class="message-item">
+      <p><strong>{{'CUSTOMER' | translate}}:</strong> {{message.user?.username}}</p>
+      <p><strong>{{'QUESTION' | translate}}:</strong> {{ message.text }}</p>
+      <p><strong>{{'DATE' | translate}}:</strong> {{ message.questionDate | date:'medium' }}</p>
+      <div class="answer-section">
+        <form #answerForm="ngForm" (ngSubmit)="answerQuestion(message.id)">
+          <textarea [(ngModel)]="answerTexts[message.id]" 
+                    name="answerText" 
+                    placeholder="Type your answer..." 
+                    required                   
+                    #answerText="ngModel">
+          </textarea>         
+          <div *ngIf="answerText.invalid && (answerText.dirty || answerText.touched)">
+            <small *ngIf="answerText.errors?.['required']" class="error-text">{{'EMPTY' | translate}}</small>          
+          </div>
+      
+          <button type="submit" [disabled]="answerForm.invalid">{{'SUBMIT' | translate}}</button>
+        </form>
+      </div>
+      <button class="delete-button" (click)="deleteQuestion(message.id)">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </div>
+    <p *ngIf="openMessages.length === 0">{{'NOMESSAGES' |translate}}</p>
+  </div>
+
+  <div class="message-section">
+    <h3>Closed Messages</h3>
+    <div *ngFor="let message of closedMessages" class="message-item">
+      <p><strong>{{'CUSTOMER' | translate}}:</strong> {{ message.user?.username }}</p>
+      <p><strong>{{'QUESTION' | translate}}:</strong> {{ message.text }}</p>
+      <p><strong>{{'DATE' | translate}}:</strong> {{ message.questionDate | date:'medium' }}</p>
+      <p><strong>{{'ANSWER' |translate}}:</strong> {{ message.answer }}</p>
+      <p><strong>{{'ANSWEREDON' | translate}}:</strong> {{ message.answerDate | date:'medium' }}</p>
+      <button class="delete-button" (click)="deleteQuestion(message.id)">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </div>
+    <p *ngIf="closedMessages.length === 0">{{'NOMESSAGES' |translate}}</p>
+  </div>
+</div>
+

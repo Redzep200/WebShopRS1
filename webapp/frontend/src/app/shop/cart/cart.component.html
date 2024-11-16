@@ -1,0 +1,37 @@
+<div
+  class="cart-dropdown"
+  [style.top.px]="position.bottom"
+  [style.left.px]="position.left - 100"
+>
+<div class="header-container">
+  <h3>{{'YOURCART' | translate}}</h3>
+  <span *ngIf="cartItems.length > 0" (click)="clearCart()" class="material-icons clear-icon">
+    delete
+  </span>
+</div>
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    {{"EMPTYCART" | translate}}
+  </div>
+  <div *ngFor="let item of cartItems" class="cart-item">
+    <img
+      [src]="item.product.imageString"
+      [alt]="item.product.name"
+      class="cart-item-image"
+    />
+    <div class="cart-item-details">
+      <h4>{{ item.product.name }}</h4>
+      <p>{{'QUANTITY' | translate}} {{ item.quantity }}</p>
+      <div class="price-and-button">
+        <p class="price">{{'PRICE' | translate}} {{ item.product.price }} BAM</p>
+        
+        <span (click)="deleteItem(item.id)" class="material-icons">
+          delete
+          </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-footer">
+    <button *ngIf="cartItems.length > 0" (click)="goToCheckout()" class="btn btn-primary">{{'PROCEED' | translate}}</button>
+  </div>
+</div>

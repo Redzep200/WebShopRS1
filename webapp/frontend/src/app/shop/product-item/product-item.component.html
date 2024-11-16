@@ -1,0 +1,9 @@
+<div (click)="openProductDetails()" class="col-md-4 product-card">
+  <div class="card">
+    <img [src]="product.imageString" class="card-img-top" alt="Product 1" />
+    <div class="card-body">
+      <h5 class="card-title">{{ product.name }}</h5>
+      <p class="card-text">{{ product.price }} BAM</p>
+    </div>
+  </div>
+</div>

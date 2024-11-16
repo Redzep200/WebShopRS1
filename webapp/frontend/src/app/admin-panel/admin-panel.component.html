@@ -1,0 +1,351 @@
+<div class="admin-panel">
+  <h2>Admin Panel</h2>
+
+  <nav class="button-group">
+    <button class="primary" (click)="showSection('products')">{{'PRODUCTS' | translate}}</button>
+    <button class="primary" (click)="showSection('categories')">{{'CATEGORIES' | translate}}</button>
+    <button class="primary" (click)="showSection('cities')">{{'CITIES' | translate}}</button>
+    <button class="primary" (click)="showSection('countries')">{{'COUNTRIES' | translate}}</button>
+    <button class="primary" (click)="showSection('suppliers')">{{'SUPPLIERS' | translate}}</button>
+    <button class="primary" (click)="showSection('manufacturers')">{{'MANUFACTURERS' | translate}}</button>
+    <button class="primary" (click)="showSection('promotions')">{{'PROMOTIONS' | translate}}</button>
+  </nav>
+
+  <div *ngIf="currentSection === 'promotions'" class="section">
+    <h3>{{'PROMOTIONS' |translate}}</h3>
+    <ul class="item-list">
+      <li *ngFor="let promotion of promotions">
+        {{ promotion.name }} - {{ promotion.discountPercentage }} - {{'PROMOTION'|translate}}
+      </li>
+    </ul>
+    
+    <div class="section">
+      <h4>{{'ADDPROMOTION' | translate}}</h4>
+      <form [formGroup]="addPromotionForm" (ngSubmit)="onSubmitPromotion()">
+        <div class="form-group">
+          <input formControlName="name" placeholder="{{'NAME' | translate}}" [ngClass]="{'invalid': addPromotionForm.get('name')?.invalid && addPromotionForm.get('name')?.touched}" />
+          <div *ngIf="addPromotionForm.get('name')?.invalid && addPromotionForm.get('name')?.touched">
+            <small *ngIf="addPromotionForm.get('name')?.errors?.['required']">{{"EMPTY" | translate}}</small>
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <textarea formControlName="description" placeholder="{{'DESCRIPTION' | translate}}" [ngClass]="{'invalid': addPromotionForm.get('description')?.invalid && addPromotionForm.get('description')?.touched}"></textarea>
+          <div *ngIf="addPromotionForm.get('description')?.invalid && addPromotionForm.get('description')?.touched">
+            <small *ngIf="addPromotionForm.get('description')?.errors?.['required']">{{"EMPTY" | translate}}</small>
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <input formControlName="startDate" type="date" placeholder="{{'STARTDATE' | translate}}" [ngClass]="{'invalid': addPromotionForm.get('startDate')?.invalid && addPromotionForm.get('startDate')?.touched}" />
+          <div *ngIf="addPromotionForm.get('startDate')?.invalid && addPromotionForm.get('startDate')?.touched">
+            <small *ngIf="addPromotionForm.get('startDate')?.errors?.['required']">{{"EMPTY" | translate}}</small>
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <input formControlName="endDate" type="date" placeholder="{{'ENDDATE' | translate}}" [ngClass]="{'invalid': addPromotionForm.get('endDate')?.invalid && addPromotionForm.get('endDate')?.touched}" />
+          <div *ngIf="addPromotionForm.get('endDate')?.invalid && addPromotionForm.get('endDate')?.touched">
+            <small *ngIf="addPromotionForm.get('endDate')?.errors?.['required']">{{"EMPTY" | translate}}</small>
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <input formControlName="discountPercentage" type="number" placeholder="{{'DISCOUNTPERCENTAGE' | translate}}" [ngClass]="{'invalid': addPromotionForm.get('discountPercentage')?.invalid && addPromotionForm.get('discountPercentage')?.touched}" />
+          <div *ngIf="addPromotionForm.get('discountPercentage')?.invalid && addPromotionForm.get('discountPercentage')?.touched">
+            <small *ngIf="addPromotionForm.get('discountPercentage')?.errors?.['required']">{{"EMPTY" | translate}}</small>
+            <small *ngIf="addPromotionForm.get('discountPercentage')?.errors?.['min']">{{"MINVALUE" | translate}}</small>
+            <small *ngIf="addPromotionForm.get('discountPercentage')?.errors?.['max']">{{"MAXVALUE" | translate}}</small>
+          </div>
+        </div>
+    
+        <button class="primary" type="submit" [disabled]="addPromotionForm.invalid">{{'ADD' | translate}}</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Cities -->
+  <div *ngIf="currentSection === 'cities'" class="section">
+    <h3>{{'CITIES' |translate}}</h3>
+    <ul class="item-list">
+      <li *ngFor="let city of cities">
+        {{ city.name }} - {{ city.zipCode }} - {{'COUNTRY'|translate}}: {{ city.country?.name }}
+        <div>
+          <button class="primary button-gap" (click)="editCity(city)">{{'EDIT' |translate}}</button>
+          <button class="secondary" (click)="removeCity(city.id)">{{'REMOVE' | translate}}</button>
+        </div>
+      </li>
+    </ul>
+    
+    <div class="section">
+      <h4>{{'ADDCITY' | translate}}</h4>
+      <form [formGroup]="addCityForm" (ngSubmit)="onSubmitCity()">
+        <div class="form-group">
+          <input formControlName="name" placeholder="{{'NAME' | translate}}" [ngClass]="{'invalid': addCityForm.get('name')?.invalid && addCityForm.get('name')?.touched}" />
+          <div *ngIf="addCityForm.get('name')?.invalid && addCityForm.get('name')?.touched">
+            <small *ngIf="addCityForm.get('name')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+            <small *ngIf="addCityForm.get('name')?.errors?.['invalidName']">{{'LETTERS' | translate}}</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <input formControlName="zipCode" placeholder="{{'ZIPCODE' | translate}}" [ngClass]="{'invalid': addCityForm.get('name')?.invalid && addCityForm.get('name')?.touched}" />
+          <div *ngIf="addCityForm.get('zipCode')?.invalid && addCityForm.get('zipCode')?.touched">
+            <small *ngIf="addCityForm.get('zipCode')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="countrySelect">{{'COUNTRY' | translate}}:</label>
+          <select formControlName="countryId" id="countrySelect" name="countrySelect" [ngClass]="{'invalid': addCityForm.get('name')?.invalid && addCityForm.get('name')?.touched}">
+            <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+          </select>
+          <div *ngIf="addCityForm.get('countryId')?.invalid && addCityForm.get('countryId')?.touched">
+            <small *ngIf="addCityForm.get('countryId')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+          </div>
+        </div>
+        <button class="primary" type="submit" [disabled]="addCityForm.invalid">{{'ADD' | translate}}</button>
+      </form>
+    </div>
+  </div>
+  
+
+  <!-- Countries -->
+  <div *ngIf="currentSection === 'countries'" class="section">
+    <h3>{{'COUNTRIES' |  translate}}</h3>
+    <ul class="item-list">
+      <li *ngFor="let country of countries">
+        {{ country.name }}
+        <div>
+          <button class="primary button-gap" (click)="editCountry(country)">{{'EDIT'| translate}}</button>
+          <button class="secondary" (click)="removeCountry(country.id)">{{'REMOVE' | translate}}</button>
+        </div>
+      </li>
+    </ul>
+    <div class="section">
+      <h4>{{'ADDCOUNTRY' | translate}}</h4>
+      <form [formGroup]="addCountryForm" (ngSubmit)="onSubmitCountry()">
+        <div class="form-group">
+          <input formControlName="name" placeholder="{{'NAME' | translate}}" [ngClass]="{'invalid': addCountryForm.get('name')?.invalid && addCountryForm.get('name')?.touched}" />
+          <div *ngIf="addCountryForm.get('name')?.invalid && addCountryForm.get('name')?.touched">
+            <small *ngIf="addCountryForm.get('name')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+            <small *ngIf="addCountryForm.get('name')?.errors?.['invalidName']">{{'LETTERS' |translate}}</small>
+          </div>
+        </div>
+      <button class="primary" type="submit" [disabled]="addCountryForm.invalid">{{'ADD' | translate}}</button>
+    </form>
+    </div>
+  </div>
+
+  <!-- Suppliers -->
+  <div *ngIf="currentSection === 'suppliers'" class="section">
+    <h3>{{'SUPPLIERS' | translate}}</h3>
+    <ul class="item-list">
+      <li *ngFor="let supplier of suppliers">
+        {{ supplier.name }} - {{ supplier.adress }}
+        <div>
+          <button class="primary button-gap" (click)="editSupplier(supplier)">{{'EDIT' | translate}}</button>
+          <button class="secondary" (click)="removeSupplier(supplier.id)">{{'REMOVE' | translate}}</button>
+        </div>
+      </li>
+    </ul>
+    <div class="section">
+      <h4>{{'ADDSUPPLIER' | translate}}</h4>
+      <form [formGroup]="addSupplierForm" (ngSubmit)="onSubmitSupplier() ">
+      <div class="form-group">
+        <input formControlName="name" placeholder="{{'NAME' | translate}}" [ngClass]="{'invalid': addSupplierForm.get('name')?.invalid && addSupplierForm.get('name')?.touched}"/>
+          <div *ngIf="addSupplierForm.get('name')?.invalid && addSupplierForm.get('name')?.touched">
+            <small *ngIf="addSupplierForm.get('name')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+            <small *ngIf="addSupplierForm.get('name')?.errors?.['invalidName']">{{'LETTERS' |translate}}</small>
+          </div>
+      </div>
+      <div class="form-group">
+        <input formControlName="adress" placeholder="{{'ADDRESS' | translate}}" />
+          <div *ngIf="addSupplierForm.get('adress')?.invalid && addSupplierForm.get('adress')?.touched">
+            <small *ngIf="addSupplierForm.get('adress')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+          </div>
+      </div>
+      <div class="form-group">
+        <input formControlName="contactPhone" placeholder="{{'PHONE' | translate}}" />
+          <div *ngIf="addSupplierForm.get('contactPhone')?.invalid && addSupplierForm.get('contactPhone')?.touched">
+            <small *ngIf="addSupplierForm.get('contactPhone')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+          </div>
+      </div>
+      <div class="form-group">
+        <input formControlName="email" placeholder="{{'EMAIL'}}" />
+          <div *ngIf="addSupplierForm.get('email')?.invalid && addSupplierForm.get('email')?.touched">
+            <small *ngIf="addSupplierForm.get('email')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="citySelect">{{'CITY' |translate}}:</label>
+        <select formControlName="cityId" id="citySelect" name="citySelect">
+          <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+        </select>
+        <div *ngIf="addSupplierForm.get('cityId')?.invalid && addSupplierForm.get('cityId')?.touched">
+          <small *ngIf="addSupplierForm.get('cityId')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+        </div>
+      </div>
+      <button class="primary" type="submit" [disabled]="addSupplierForm.invalid">{{'ADD' |translate}}</button>
+    </form>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div *ngIf="currentSection === 'categories'" class="section">
+    <h3>{{'CATEGORIES' | translate}}</h3>
+    <ul class="item-list">
+      <li *ngFor="let category of categories">
+        {{ category.name }}
+        <div>
+          <button class="primary button-gap" (click)="editCategory(category)">{{'EDIT' | translate}}</button>
+          <button class="secondary" (click)="removeCategory(category.id)">{{'REMOVE' |translate}}</button>
+        </div>
+      </li>
+    </ul>
+  
+    <div class="section">
+      <h4>{{'ADDCATEGORY' | translate}}</h4>
+      <form [formGroup]="addCategoryForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input formControlName="name" placeholder="{{'NAME' | translate}}" />
+          <div *ngIf="addCategoryForm.get('name')?.invalid && addCategoryForm.get('name')?.touched">
+            <small *ngIf="addCategoryForm.get('name')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+            <small *ngIf="addCategoryForm.get('name')?.errors?.['invalidName']">{{'LETTERS' |translate}}</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <input formControlName="description" placeholder="{{'DESCRIPTION' | translate}}" />
+          <div *ngIf="addCategoryForm.get('description')?.invalid && addCategoryForm.get('description')?.touched">
+            <small *ngIf="addCategoryForm.get('description')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+            <small *ngIf="addCategoryForm.get('description')?.errors?.['invalidName']">{{'LETTERS' |translate}}</small>
+          </div>
+        </div>
+        <button class="primary" type="submit" [disabled]="addCategoryForm.invalid">{{'ADD' |translate}}</button>
+      </form>
+    </div>
+  </div>
+  
+
+  <!-- Manufacturers -->
+  <div *ngIf="currentSection === 'manufacturers'" class="section">
+    <h3>{{'MANUFACTURERS' | translate}}</h3>
+    <ul class="item-list">
+      <li *ngFor="let manufacturer of manufacturers">
+        {{ manufacturer.name }} - {{ manufacturer.address }}
+        <div>
+          <button class="primary button-gap" (click)="editManufacturer(manufacturer)">{{'EDIT' | translate}}</button>
+          <button class="secondary" (click)="removeManufacturer(manufacturer.id)">{{'REMOVE' | translate}}</button>
+        </div>
+      </li>
+    </ul>
+    <div class="section">
+      <h4>{{'ADDMANUFACTURER' | translate}} </h4>
+      <form [formGroup]="addManufacturerForm" (ngSubmit)="onSubmitManufacturer()">
+      <div class="form-group">
+        <input formControlName="name" placeholder="{{'NAME' | translate}}" />
+          <div *ngIf="addManufacturerForm.get('name')?.invalid && addManufacturerForm.get('name')?.touched">
+            <small *ngIf="addManufacturerForm.get('name')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+            <small *ngIf="addManufacturerForm.get('name')?.errors?.['invalidName']">{{'LETTERS' | translate}}</small>
+          </div>
+      </div>
+      <div class="form-group">
+        <input formControlName="address" placeholder="{{'ADDRESS' |translate}}" />
+          <div *ngIf="addManufacturerForm.get('address')?.invalid && addManufacturerForm.get('address')?.touched">
+            <small *ngIf="addManufacturerForm.get('address')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+          </div>
+      </div>
+      <div class="form-group">
+        <input formControlName="email" placeholder="{{'EMAIL' | translate}}" />
+          <div *ngIf="addManufacturerForm.get('email')?.invalid && addManufacturerForm.get('email')?.touched">
+            <small *ngIf="addManufacturerForm.get('email')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+          </div>
+      </div>
+      <button class="primary" type="submit" [disabled]="addManufacturerForm.invalid">{{'ADD' | translate}}</button>
+    </form>
+    </div>
+  </div>
+
+  <!-- Products -->
+  <div *ngIf="currentSection === 'products'" class="section">
+    <h3>{{'PRODUCTS' | translate}}</h3>
+    <ul class="item-list">
+      <li *ngFor="let product of products">
+        <h4>{{ product.name }} - {{ product.price }} BAM</h4>
+        <div class="dropdown">          
+          <button class="options-button" (click)="toggleDropdown(product.id)">
+            &#8942;
+          </button>
+                   
+          <div class="dropdown-content" *ngIf="dropdownOpen === product.id">
+            <button (click)="fileInput.click()">{{'ADDIMAGE' | translate}}</button>
+            <button (click)="openEditPopup(product)">{{'EDIT' | translate}}</button>
+            <button (click)="removeProduct(product.id)">{{'REMOVE' | translate}}</button>
+            <div class="promotion-dropdown">
+              <select [(ngModel)]="selectedPromotionId">
+                <option [ngValue]="null" disabled>{{'SELECT_PROMOTION' | translate}}</option>
+                <option *ngFor="let promotion of promotions" [ngValue]="promotion.id">
+                  {{promotion.name}}
+                </option>
+              </select>
+              <button [disabled]="!selectedPromotionId" (click)="addToPromotion(product.id)">{{'ADD TO PROMOTION' | translate}}</button>
+            </div>
+          </div>
+          
+          <input type="file" (change)="onFileSelected($event, product.id)" accept="image/*" style="display: none" #fileInput>
+        </div>
+      </li>
+    </ul>
+    
+
+    <!-- Add New Product Form -->
+    <div class="section">
+      <h4>{{'ADDPRODUCT' |translate}}</h4>
+<form [formGroup]="addProductForm" (ngSubmit)="onSubmitProduct()">
+  <div class="form-group">
+    <input formControlName="name" placeholder="{{'NAME' | translate}}" />
+    <div *ngIf="addProductForm.get('name')?.invalid && addProductForm.get('name')?.touched">
+      <small *ngIf="addProductForm.get('name')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+      <small *ngIf="addProductForm.get('name')?.errors?.['invalidName']">{{'LETTERS' |translate}}</small>
+    </div>
+  </div>
+  <div class="form-group">
+    <input formControlName="description" placeholder="{{'DESCRIPTION' | translate}}" />
+    <div *ngIf="addProductForm.get('description')?.invalid && addProductForm.get('description')?.touched">
+      <small *ngIf="addProductForm.get('description')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+      <small *ngIf="addProductForm.get('name')?.errors?.['invalidName']">{{'LETTERS' |translate}}</small>
+    </div>
+  </div>
+  <div class="form-group">
+    <input formControlName="price" placeholder="{{'PRICE' | translate}}" type="number" />
+    <div *ngIf="addProductForm.get('price')?.invalid && addProductForm.get('price')?.touched">
+      <small *ngIf="addProductForm.get('price')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="categorySelect">{{'CATEGORY' | translate}}:</label>
+    <select formControlName="categoryId" id="categorySelect" name="categorySelect">
+      <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+    </select>
+    <div *ngIf="addProductForm.get('categoryId')?.invalid && addProductForm.get('categoryId')?.touched">
+      <small *ngIf="addProductForm.get('categoryId')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="manufacturerSelect">{{'MANUFACTURER' | translate}}:</label>
+    <select formControlName="manufacturerId" id="manufacturerSelect" name="manufacturerSelect">
+      <option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.id">{{ manufacturer.name }}</option>
+    </select>
+    <div *ngIf="addProductForm.get('manufacturerId')?.invalid && addProductForm.get('manufacturerId')?.touched">
+      <small *ngIf="addProductForm.get('manufacturerId')?.errors?.['required']">{{"EMPTY" |translate}}</small>
+    </div>
+  </div>
+  <button class="primary" type="submit" [disabled]="addProductForm.invalid">{{'ADD' |translate}}</button>
+</form>
+    </div>
+    <app-edit-product-popup
+    *ngIf="editingProduct"
+    [product]="editingProduct"
+    (save)="saveProduct($event)"
+    (cancel)="cancelEdit()"
+  ></app-edit-product-popup>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="edit-dialog">
+  <h2>Edit Manufacturer</h2>
+  <form #manufacturerForm="ngForm" (ngSubmit)="onSaveClick()">
+    <div class="form-group">
+      <label for="manufacturerName">Manufacturer Name:</label>
+      <input 
+        id="manufacturerName" 
+        name="manufacturerName" 
+        [(ngModel)]="editedManufacturer.name" 
+        required 
+        minlength="3" 
+        #manufacturerName="ngModel">
+      <div *ngIf="manufacturerName?.invalid && manufacturerName?.touched">
+        <small *ngIf="manufacturerName?.errors?.['required']">Manufacturer Name is required.</small>
+        <small *ngIf="manufacturerName?.errors?.['minlength']">Manufacturer Name must be at least 3 characters long.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Address:</label>
+      <input 
+        id="address" 
+        name="address" 
+        [(ngModel)]="editedManufacturer.address" 
+        required 
+        minlength="5" 
+        #address="ngModel">
+      <div *ngIf="address?.invalid && address?.touched">
+        <small *ngIf="address?.errors?.['required']">Address is required.</small>
+        <small *ngIf="address?.errors?.['minlength']">Address must be at least 5 characters long.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input 
+        id="email" 
+        name="email" 
+        [(ngModel)]="editedManufacturer.email" 
+        required 
+        email 
+        #email="ngModel">
+      <div *ngIf="email?.invalid && email?.touched">
+        <small *ngIf="email?.errors?.['required']">Email is required.</small>
+        <small *ngIf="email?.errors?.['email']">Email must be a valid email address.</small>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" (click)="onNoClick()">Cancel</button>
+      <button type="submit" [disabled]="manufacturerForm.invalid">Save</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,38 @@
+<div class="checkout-container">
+    <div class="products-list">
+      <div *ngFor="let item of cartItems" class="product-item">
+        <img [src]="item.product.imageString" [alt]="item.name">
+        <div class="product-details">
+          <h3>{{ item.product.name }}</h3>
+          <p>{{ item.description }}</p>
+          <p>{{'PRICE' | translate}} {{ item.itemPrice }}</p>
+          <p>{{'QUANTITY' | translate}} {{ item.quantity }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="order-summary">
+      <h2>{{'ORDER_SUMMARY' | translate}}</h2>
+      <div class="subtotal">
+        <span>{{'SUBTOTAL' | translate}}</span>
+        <span>{{ subtotal.toFixed(2) }} BAM</span>
+      </div>
+      
+      <div class="coupon-section">
+        <input  [(ngModel)]="couponCode" placeholder="{{'COUPON1' | translate}}">
+        <button class="right-align" (click)="validateCoupon()">{{'COUPON2' | translate}}</button>
+      </div>
+      
+      <div *ngIf="discountPercentage > 0" class="discount">
+        <span>{{'DISCOUNT' | translate}} ({{ discountPercentage }}%):</span>
+        <span>-{{ discountAmount.toFixed(2) }} BAM</span>
+      </div>
+      
+      <div class="total">
+        <strong>{{'TOTAL' | translate}}:</strong>
+        <strong>{{ total.toFixed(2) }} BAM</strong>
+      </div>
+      
+      <button class="right-align" (click)="proceedToPayment()">{{'PROCEEDPAYMENT' |  translate}}</button>
+    </div>
+  </div>

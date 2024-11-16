@@ -1,0 +1,80 @@
+<div class="edit-dialog">
+  <h2>Edit Supplier</h2>
+  <form #supplierForm="ngForm" (ngSubmit)="onSaveClick()">
+    <div class="form-group">
+      <label for="supplierName">Supplier Name:</label>
+      <input 
+        id="supplierName" 
+        name="supplierName" 
+        [(ngModel)]="editedSupplier.supplierName" 
+        required        
+        #supplierName="ngModel">
+      <div *ngIf="supplierName?.invalid && supplierName?.touched">
+        <small *ngIf="supplierName?.errors?.['required']">Supplier Name is required.</small>       
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Address:</label>
+      <input 
+        id="address" 
+        name="address" 
+        [(ngModel)]="editedSupplier.address" 
+        required       
+        #address="ngModel">
+      <div *ngIf="address?.invalid && address?.touched">
+        <small *ngIf="address?.errors?.['required']">Address is required.</small>       
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input 
+        id="phone" 
+        name="phone" 
+        [(ngModel)]="editedSupplier.phone" 
+        required 
+        pattern="^(\+\d{1,3}[- ]?)?\d{10}$"
+        #phone="ngModel">
+      <div *ngIf="phone?.invalid && phone?.touched">
+        <small *ngIf="phone?.errors?.['required']">Phone number is required.</small>
+        <small *ngIf="phone?.errors?.['pattern']">Phone number must be a valid format.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input 
+        id="email" 
+        name="email" 
+        [(ngModel)]="editedSupplier.email" 
+        required 
+        email 
+        #email="ngModel">
+      <div *ngIf="email?.invalid && email?.touched">
+        <small *ngIf="email?.errors?.['required']">Email is required.</small>
+        <small *ngIf="email?.errors?.['email']">Email must be a valid email address.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="city">City:</label>
+      <select 
+        id="city" 
+        name="city" 
+        [(ngModel)]="editedSupplier.cityId" 
+        required 
+        #city="ngModel">
+        <option *ngFor="let city of data.cities" [value]="city.id">{{ city.name }}</option>
+      </select>
+      <div *ngIf="city?.invalid && city?.touched">
+        <small *ngIf="city?.errors?.['required']">City is required.</small>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" (click)="onNoClick()">Cancel</button>
+      <button type="submit" [disabled]="supplierForm.invalid">Save</button>
+    </div>
+  </form>
+</div>

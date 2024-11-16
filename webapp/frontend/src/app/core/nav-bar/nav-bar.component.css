@@ -1,0 +1,82 @@
+.cart-no {
+  position: absolute;
+  min-width: 18px;
+  min-height: 18px;
+  border-radius: 50%;
+  font-size: 1em;
+  text-align: center;
+  top: -1rem;
+  right: 0.2rem;
+  background-color: rgb(0, 132, 255);
+  color: white;
+}
+
+.navbar-brand {
+  cursor: pointer;
+}
+
+#cartIcon {
+  cursor: pointer;
+}
+
+.badge {
+  font-size: 0.7em;
+  padding: 3px 6px;
+}
+
+.navbar{
+  background-color: #19202A;
+}
+
+.nav{
+  position:relative;
+  left: 0;
+}
+
+.ime{
+  color: white;
+}
+
+.nav-item{
+  color: white;
+  margin-right: 20px;
+}
+
+.custom-nav-link {
+  color: white; 
+  font-size: 1.1rem; 
+  transition: background-color 0.3s ease; 
+}
+
+.custom-nav-link:hover,
+.custom-nav-link:focus {
+  background-color: #d0d0d0;
+}
+
+.router-link-active {
+  background-color: #007bff;
+  color: white;
+}
+
+.nav-item.active .custom-nav-link {
+  background-color: #a0a0a0; 
+}
+
+.navbar-brand{
+  display: grid;
+  width: 22vh;
+}
+
+.navbar-brand img{
+justify-self:center;
+}
+
+.flag-icon {
+  font-size: 1.5rem; 
+  margin-right: 10px; 
+  cursor: pointer;
+}
+
+.flag-icon:last-child {
+  margin-right: 0; 
+}

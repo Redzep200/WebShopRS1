@@ -1,0 +1,46 @@
+<div class="sistem-admin-panel">
+  <h2>Upravljanje korisnicima</h2>
+  
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Search users...">
+    <button (click)="searchUsers()">{{'SEARCH' | translate}}</button>
+    <button routerLink="/store">{{'STORES' | translate}}</button>
+  </div>
+
+  <div *ngFor="let role of roles">
+    <h3>{{ role.name }}</h3>
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Ime</th>
+          <th>Prezime</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Akcije</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of groupedUsers[role.name]">
+          <td>{{ user.name }}</td>
+          <td>{{ user.surname }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td class="action-buttons">
+            <button class="edit-button" (click)="editUser(user)">{{'EDIT' | translate}}</button>
+            <button class="delete-button" (click)="onUserDeleted(user.id)">{{'DELETE' | translate}}</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="overlay" *ngIf="showEditDialog">
+    <app-edit-user-dialog
+      [user]="editedUser"
+      [roles]="roles"
+      (userUpdated)="onUserUpdated($event)"
+      (userDeleted)="onUserDeleted($event)"
+      (dialogClosed)="closeEditDialog()"
+    ></app-edit-user-dialog>
+  </div>
+</div>

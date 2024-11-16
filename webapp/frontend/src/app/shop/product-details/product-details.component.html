@@ -1,0 +1,65 @@
+<div  *ngIf="product" class="body">
+  <div class="product-container">
+    <div class="image-container">
+      <img [src]="product.imageString" alt="Product Image" />
+    </div>
+    <div class="details-container">
+      <h1>{{ product.name }}</h1>
+      <p class="description">
+        {{ product.description }}
+      </p>
+      <p class="price">{{ product.price }} BAM</p>
+      <div class="size-selection">
+        <label for="size">{{'SIZE' | translate}}</label>
+        <select id="size">
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+        </select>
+      </div>
+      <div class="quantity-selection">
+        <label for="quantity">{{'QUANTITY' | translate}}</label>
+        <input type="number" id="quantity" [(ngModel)]="quantity" min="1" />
+      </div>
+      <button (click)="addToCart(product.productId, quantity)" class="add-to-cart">
+        {{'ADDTOCART' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <div class="comments-section">
+    <h2>{{'COMMENTS'| translate}}</h2>
+    <div *ngIf="comments.length === 0">{{"NO_COMMENTS" | translate}}</div>
+    <div *ngFor="let comment of comments" class="comment">
+      <p>{{comment.user.name}} {{comment.user.surname}}</p>
+      <p><strong>{{'RATING' | translate}}</strong> {{ comment.reviewRating }} / 5</p>
+      <p>{{ comment.text }}</p>
+      <p><small>{{'POSTED_ON' | translate}} {{ comment.date | date:'medium' }}</small></p>      
+      <div class="delete-icon-container">
+        <mat-icon *ngIf="canDeleteComment(comment)" (click)="deleteComment(comment.id)" class="delete-icon">
+          delete
+        </mat-icon>
+      </div>     
+      <hr>
+    </div>
+ 
+    <form class="comment-form" #newCommentForm="ngForm" (ngSubmit)="submitComment()" *ngIf="userId">
+      <textarea #newCommentTextField="ngModel" [(ngModel)]="commentText" name="commentText" placeholder="{{'LEAVE_COMMENT' | translate}}" required>        
+      </textarea>
+
+      <div *ngIf="newCommentTextField.invalid && (newCommentTextField.dirty || newCommentTextField.touched)">
+        <small *ngIf="newCommentTextField.errors?.['required']" class="error-text">{{'EMPTY' | translate}}</small>    
+      </div>
+
+      <select [(ngModel)]="rating" name="rating">
+        <option value="1">1 Star</option>
+        <option value="2">2 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="5">5 Stars</option>
+      </select>
+      <button type="submit">{{'SUBMIT_COMMENT' | translate}}</button>
+    </form>
+    <p *ngIf="!userId">{{'LOGIN_COMMENT' | translate}}</p>
+  </div>
+</div>

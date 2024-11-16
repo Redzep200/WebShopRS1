@@ -1,0 +1,53 @@
+<div class="edit-user-dialog">
+  <h2>Edit User</h2>
+  <form #editUserForm="ngForm" (ngSubmit)="saveUser()">
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" id="username" [(ngModel)]="user.username" name="username" required minlength="3" #usernameField="ngModel">
+      <div *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)">
+        <small *ngIf="usernameField.errors?.['required']" class="error-text">{{'EMPTY' | translate}}</small>
+      </div>
+    </div>
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" [(ngModel)]="user.name" name="name" required #nameField="ngModel">
+      <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)">
+        <small *ngIf="nameField.errors?.['required']" class="error-text">{{'EMPTY' | translate}}</small>
+      </div>
+    </div>
+    <div>
+      <label for="surname">Surname:</label>
+      <input type="text" id="surname" [(ngModel)]="user.surname" name="surname" required #surnameField="ngModel">
+      <div *ngIf="surnameField.invalid && (surnameField.dirty || surnameField.touched)">
+        <small *ngIf="surnameField.errors?.['required']" class="error-text">{{'EMPTY' | translate}}</small>
+      </div>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" [(ngModel)]="user.email" name="email" required email #emailField="ngModel">
+      <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)">
+        <small *ngIf="emailField.errors?.['required']" class="error-text">{{'EMPTY' | translate}}</small>
+      </div>
+    </div>
+    <div>
+      <label for="activity">
+        <input type="checkbox" id="activity" [(ngModel)]="user.activity" name="activity">
+        Activity
+      </label>
+    </div>
+    <div>
+      <label for="role">Role:</label>
+      <select id="role" [(ngModel)]="user.roleId" name="role" required #roleField="ngModel">
+        <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+      </select>
+      <div *ngIf="roleField.invalid && (roleField.dirty || roleField.touched)">
+        <small *ngIf="roleField.errors?.['required']" class="error-text">{{'EMPTY' | translate}}</small>
+      </div>
+    </div>
+    <div class="button-group">
+      <button type="submit" [disabled]="editUserForm.invalid">Save</button>
+      <button type="button" (click)="deleteUser()">Delete</button>
+      <button type="button" (click)="closeDialog()">Cancel</button>
+    </div>
+  </form>
+</div>

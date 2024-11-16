@@ -1,0 +1,72 @@
+<p>cities works!</p>
+<label for="search">Pretraži:</label>
+<input placeholder="Pretraga..." name="search" [(ngModel)]="pretraga" (ngModelChange)="getCities()">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Grad</th>
+        <th scope="col">Država</th>
+        <th scope="col">Zipcode</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cities;">
+        <td>{{item.name}}</td>
+        <td>{{item.country.name}}</td>
+        <td>{{item.zipCode}}</td>
+        <td>
+          <button (click)="deleteCity(item)"class="btn btn-outline-danger">Obriši</button>
+        </td>
+        <td>
+          <button (click)="editCity(item)" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#detalji" >Detalji</button>
+        </td>
+      </tr>
+     
+    </tbody>
+  </table>
+<button data-bs-toggle="modal" (click)="selectedCountryName=''" data-bs-target="#kreiraj">Kreiraj grad</button>
+  <div class="modal fade" id="detalji" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="cityForEdit!=null">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Uredi grad</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Grad: <br><input [(ngModel)]="cityForEdit.name"><br>
+          Poštanski kod: <br><input [(ngModel)]="cityForEdit.zipCode">
+        </div>
+        <select [(ngModel)]="selectedCountryName">
+          <option value="" disabled selected>Odaberite državu...</option>
+          <option *ngFor="let item of countries">{{item.name}}</option>
+        </select>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvori</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveChanges()">Spasi promjene</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="kreiraj" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Kreiraj grad</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Grad: <br><input [(ngModel)]="cityName"><br>
+          Poštanski kod: <br><input [(ngModel)]="zipCode"><br>
+        </div>
+        <select [(ngModel)]="selectedCountryName">
+          <option value="" disabled selected>Odaberite državu...</option>
+          <option *ngFor="let item of countries">{{item.name}}</option>
+        </select>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Zatvori</button>
+          <button type="submit" class="btn btn-primary" (click)="createCity()"data-bs-dismiss="modal">Kreiraj</button>
+        </div>
+      </div>
+    </div>
+  </div>

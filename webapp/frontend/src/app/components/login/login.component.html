@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-center">Login</h3>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="loginForm">
+              <div class="input-field" [class.error]="loginForm.controls['email'].dirty && loginForm.hasError('required','email')">
+                <span class="fa fa-envelope p-2"></span>
+                <label for="email">E-mail</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  formControlName="email"
+                  [(ngModel)]="emailModel"
+                />
+                <small *ngIf="loginForm.controls['email'].dirty && loginForm.hasError('required','email')" class="text-danger">E-mail je obavezan!</small>
+              </div>
+              <div class="input-field" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required','password')">
+                <span class="fa fa-lock p-2"></span>
+                <label for="password">Lozinka</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  formControlName="password"
+                  [(ngModel)]="passwordModel"
+                />
+                <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')" class="text-danger">Lozinka je obavezna!</small>
+              </div>
+              <div class="form-group text-center">
+                <button type="submit" [disabled]="loginForm.invalid" id="dugme" (click)="login()" class="btn btn-primary btn-block">
+                  Logiraj se
+                </button>
+              </div>
+            </form>
+            <div class="text-center">
+                <a style="text-decoration: none;" href="#">Zaboravili ste lozinku?</a> | <a style="text-decoration: none;" routerLink="/register">Nemate račun?</a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

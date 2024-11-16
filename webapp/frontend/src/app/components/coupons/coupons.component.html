@@ -1,0 +1,72 @@
+<!-- <p>coupons works!</p>
+<div>
+    
+    </div> 
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Kod kupona</th>
+            <th scope="col">Sniženje</th>
+            <th scope="col">Iskorišten</th>
+            <th scope="col">Datum isteka</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of coupons">
+            <td>{{item.value}}</td>
+            <td>{{item.percentDiscount}}%</td>
+            <td>
+                <span *ngIf="item.isActive">Ne</span>
+                <span *ngIf="!item.isActive">Da</span>
+            </td>
+            <td>{{item.expirationDate}}</td>
+            <td>
+              <button class="btn btn-outline-danger" (click)="deleteCoupon(item)">Obriši</button>
+            </td>
+            <td>
+              <button class="btn btn-outline-info" (click)="editCoupon(item)" data-bs-toggle="modal" data-bs-target="#detalji">Detalji</button>
+            </td>
+          </tr>
+         
+        </tbody>
+      </table>
+    <button data-bs-toggle="modal" data-bs-target="#kreiraj">Kreiraj kupon</button>
+      <div class="modal fade" id="detalji" tabindex="-1" aria-labelledby="exampleModalLabel" *ngIf="couponForEdit!=null" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Uredi kupon</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Kod: <br><input [(ngModel)]="couponForEdit.value" disabled><br>
+              Popust (u %): <br><input [(ngModel)]="couponForEdit.percentDiscount"><br>
+              Datum isteka: <br><input type="date" [(ngModel)]="couponForEdit.expirationDate">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvori</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveChanges()">Spasi promjene</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="modal fade" id="kreiraj" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Kreiraj kupone</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Količina kupona: <br><input [(ngModel)]="couponAmount"><br>
+                Popust (u %): <br><input [(ngModel)]="discount"><br>
+                Datum isteka: <br><input type="date" [(ngModel)]="expiryDate">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Zatvori</button>
+              <button type="button" class="btn btn-primary" (click)="createCoupons()" data-bs-dismiss="modal">Kreiraj</button>
+            </div>
+          </div>
+        </div>
+      </div> -->

@@ -1,0 +1,22 @@
+<div class="visit-us-container">
+  <div class="map-container">
+    <google-map [options]="mapOptions">
+      <map-marker 
+        *ngFor="let store of stores" 
+        [position]="{ lat: store.latitude, lng: store.longitude }"
+        [title]="store.name"
+        (mapClick)="onStoreSelect(store)">
+      </map-marker>
+    </google-map>
+  </div>
+
+  <div class="store-details" *ngIf="selectedStore">
+    <h3>{{'DETAILS' | translate}}</h3>
+    <img *ngIf="selectedStore.imageString" [src]="selectedStore.imageString" alt="Store Image" class="store-image">
+    <p><strong>{{'NAME' | translate}}:</strong> {{selectedStore.name}}</p>
+    <p><strong>{{'ADDRESS' | translate}}:</strong> {{selectedStore.address}}</p>
+    <p><strong>{{'CITY' | translate}}:</strong> {{getCityName(selectedStore)}}</p>
+    <p><strong>{{'COUNTRY' | translate}}:</strong> {{getCountryName(selectedStore)}}</p>
+  </div>
+</div>
+

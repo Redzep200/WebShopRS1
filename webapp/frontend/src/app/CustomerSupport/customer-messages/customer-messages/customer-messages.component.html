@@ -1,0 +1,61 @@
+<div class="customer-messages-container">
+    <h2 >{{'Customer Support Messages' | translate}}</h2>
+    <div class="date-search-container">
+      <input 
+        type="date" 
+        [(ngModel)]="startDate" 
+        (change)="onDateSearch()"
+      >
+      <input 
+        type="date" 
+        [(ngModel)]="endDate" 
+        (change)="onDateSearch()"
+      >
+    </div>
+    <div class="new-message-section">
+      <h3>{{'Send a New Message' | translate}}</h3>
+      <form #newMessageForm="ngForm" (ngSubmit)="createNewQuestion()">
+        <textarea [(ngModel)]="newQuestionText" 
+                  name="newQuestionText" 
+                  placeholder="{{'Type your question here' | translate}}..." 
+                  rows="4"
+                  required
+                  minlength="10"
+                  #newQuestionTextField="ngModel">
+        </textarea>
+          
+        <div *ngIf="newQuestionTextField.invalid && (newQuestionTextField.dirty || newQuestionTextField.touched)">
+          <small *ngIf="newQuestionTextField.errors?.['required']" class="error-text">{{'EMPTY' | translate}}</small>    
+        </div>
+    
+        <button type="submit" [disabled]="newMessageForm.invalid">{{'SUBMIT' | translate}}</button>
+      </form>
+    </div>
+  
+    <div class="existing-messages-section">
+      <h3>{{'Your Messages' | translate}}</h3>
+  
+      <div class="message-group open-messages">
+        <h4>{{'OPEN MESSAGES' | translate}}</h4>
+        <div *ngFor="let question of openQuestions" class="message-item open">
+          <button class="delete-button" (click)="deleteQuestion(question.id)">
+            <i class="fas fa-trash-alt"></i> 
+          </button>
+          <p class="message-text"><strong>{{'QUESTION' | translate}}:</strong> {{ question.text }}</p>
+          <p class="message-date">{{'DATE' |translate}}: {{ question.questionDate | date:'medium' }}</p>
+        </div>
+        <p *ngIf="openQuestions.length === 0" class="no-messages">{{'NOMESSAGES' | translate}}</p>
+      </div>
+      
+      <!-- Closed Messages -->
+      <div class="message-group closed-messages">
+        <h4>{{'Closed Messages' | translate}}</h4>
+        <div *ngFor="let question of closedQuestions" class="message-item closed">
+          <p class="message-text"><strong>Question:</strong> {{ question.text }}</p>
+          <p class="message-date">Sent on: {{ question.questionDate | date:'medium' }}</p>
+          <p class="message-answer"><strong>Answer:</strong> {{ question.answer }}</p>
+          <p class="message-date">Answered on: {{ question.answerDate | date:'medium' }}</p>
+        </div>
+        <p *ngIf="closedQuestions.length === 0" class="no-messages">{{'NOMESSAGES' |translate}}</p>
+      </div>
+  </div>

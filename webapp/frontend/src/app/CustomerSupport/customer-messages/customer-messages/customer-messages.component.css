@@ -1,0 +1,130 @@
+.customer-messages-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #19202A;
+  color: white;
+}
+
+.customer-messages-container h2,
+.customer-messages-container h3,
+.customer-messages-container h4 {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.customer-messages-container .date-search-container {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.customer-messages-container .date-search-container input[type="date"] {
+  padding: 8px;
+  background-color: #2a3040;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  width: calc(50% - 5px);
+}
+
+.customer-messages-container .new-message-section {
+  background-color: #2a3040;
+  padding: 20px;
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
+
+.customer-messages-container textarea {
+  width: 100%;
+  padding: 8px;
+  background-color: #3a4050;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.customer-messages-container button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.customer-messages-container button:hover {
+  background-color: #0056b3;
+}
+
+.customer-messages-container button:disabled {
+  background-color: #2a3040;
+  cursor: not-allowed;
+}
+
+.customer-messages-container .message-item {
+  background-color: #2a3040;
+  border: none;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 15px;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.customer-messages-container .message-item:hover {
+  background-color: #3a4050;
+}
+
+.customer-messages-container .message-item.open {
+  border-left: 5px solid #ffc107;
+}
+
+.customer-messages-container .message-item.closed {
+  border-left: 5px solid #28a745;
+}
+
+.customer-messages-container .message-text,
+.customer-messages-container .message-answer {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.customer-messages-container .message-date {
+  font-size: 14px;
+  color: #d0d0d0;
+}
+
+.customer-messages-container .no-messages {
+  font-style: italic;
+  color: #d0d0d0;
+}
+
+.customer-messages-container .delete-button {
+  background-color: transparent;
+  color: #dc3545;
+  border: 1px solid transparent;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.customer-messages-container .delete-button:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+  border: 1px solid #dc3545;
+}
+
+.customer-messages-container .delete-button i {
+  font-size: 18px;
+}

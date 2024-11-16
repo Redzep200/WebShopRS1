@@ -1,0 +1,210 @@
+.admin-panel {
+  max-width: 900px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+  padding: 25px;
+  background-color: #19202A;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+}
+
+h2, h3, h4 {
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.section {
+  background-color: #2a3040;
+  border: 1px solid #3a4050;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #d0d0d0;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: #3a4050;
+  border: 1px solid #4a5060;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+button.primary {
+  background-color: #007bff;
+  color: white;
+}
+
+button.primary:hover {
+  background-color: #0056b3;
+}
+
+button.secondary {
+  background-color: #dc3545;
+  color: white;
+}
+
+button.secondary:hover {
+  background-color: #c82333;
+}
+
+.item-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.item-list li {
+  background-color: #2a3040;
+  border: 1px solid #3a4050;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-list li button {
+  padding: 8px 15px;
+  font-size: 12px;
+}
+
+.edit-dialog {
+  background-color: #2a3040;
+  border: 1px solid #3a4050;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Custom styles for select dropdown */
+select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position-x: 98%;
+  background-position-y: 50%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .admin-panel {
+    padding: 15px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .item-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-list li button {
+    margin-top: 10px;
+  }
+}
+
+.invalid {
+  border: 1px solid red;
+  background-color: #fdd;
+}
+
+input.ng-valid,
+select.ng-valid {
+  border: 1px solid green;
+}
+
+input.ng-valid.ng-touched,
+select.ng-valid.ng-touched {
+  border: 1px solid lightgreen;
+}
+input.ng-touched.ng-invalid {
+  border-color: red;
+}
+
+.dropdown {
+  position: relative;
+}
+.dropdown-content {
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content button {
+  width: 100%;
+  padding: 12px 16px;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.promotion-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 16px;
+}
+.promotion-dropdown select {
+  width: 100%;
+  padding: 8px;
+}
+.promotion-dropdown button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+.options-button{
+  background: none;
+  color: white;
+}
+
+.button-gap {
+  margin-right: 10px;
+}

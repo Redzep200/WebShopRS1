@@ -1,0 +1,58 @@
+<div class="coupon-container">
+    <h2>{{'COUPONS' |translate}}</h2>
+  
+    <div class="add-coupon-form">
+      <h3>{{ 'ADDCOUPON' | translate }}</h3>
+      <form [formGroup]="addCouponForm" (ngSubmit)="onSubmitCoupon()">
+        <div class="form-group">
+          <input 
+            formControlName="percentDiscount" 
+            type="number" 
+            placeholder="{{ 'DISCPERC' | translate }}" 
+            [ngClass]="{'invalid': addCouponForm.get('percentDiscount')?.invalid && addCouponForm.get('percentDiscount')?.touched}" 
+          />
+          <div *ngIf="addCouponForm.get('percentDiscount')?.invalid && addCouponForm.get('percentDiscount')?.touched">
+            <small *ngIf="addCouponForm.get('percentDiscount')?.errors?.['required']">Discount percentage is required.</small>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <input 
+            formControlName="value" 
+            type="text" 
+            placeholder="{{ 'CODE' | translate }}" 
+            [ngClass]="{'invalid': addCouponForm.get('value')?.invalid && addCouponForm.get('value')?.touched}" 
+          />
+          <div *ngIf="addCouponForm.get('value')?.invalid && addCouponForm.get('value')?.touched">
+            <small *ngIf="addCouponForm.get('value')?.errors?.['required']">Code is required.</small>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <input 
+            formControlName="expirationDate" 
+            type="date" 
+            placeholder="Expiration Date" 
+            [ngClass]="{'invalid': addCouponForm.get('expirationDate')?.invalid && addCouponForm.get('expirationDate')?.touched}" 
+          />
+          <div *ngIf="addCouponForm.get('expirationDate')?.invalid && addCouponForm.get('expirationDate')?.touched">
+            <small *ngIf="addCouponForm.get('expirationDate')?.errors?.['required']">Expiration date is required.</small>
+          </div>
+        </div>
+  
+        <button class="primary" type="submit" [disabled]="addCouponForm.invalid">{{ 'ADDCOUPON2' | translate }}</button>
+      </form>
+    </div>
+  
+    <div class="coupon-list">
+      <h3>{{'EXISTINGCOUPONS' | translate}}</h3>
+      <ul>
+        <li *ngFor="let coupon of coupons">
+          {{ coupon.value }} - {{ coupon.percentDiscount }}% {{'OFF' | translate}}
+          <span *ngIf="coupon.expirationDate"> ({{'VALIDTILL' |translate}}: {{ coupon.expirationDate | date }})</span>
+          <button (click)="deleteCoupon(coupon.id)">{{'DELETE' |translate}}</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  

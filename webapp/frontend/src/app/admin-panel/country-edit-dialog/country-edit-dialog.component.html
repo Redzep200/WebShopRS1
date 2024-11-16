@@ -1,0 +1,23 @@
+<div class="edit-dialog">
+  <h2>Edit Country</h2>
+  <form #countryForm="ngForm" (ngSubmit)="saveChanges()">
+    <div class="form-group">
+      <label for="editedCountryName">Name:</label>
+      <input 
+        id="editedCountryName" 
+        name="editedCountryName" 
+        [(ngModel)]="editedCountryName" 
+        required 
+        minlength="2"
+        #countryNameControl="ngModel">
+      <div *ngIf="countryNameControl?.invalid && countryNameControl?.touched">
+        <small *ngIf="countryNameControl?.errors?.['required']">Country Name is required.</small>
+        <small *ngIf="countryNameControl?.errors?.['minlength']">Country Name must be at least 2 characters long.</small>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="button" (click)="onNoClick()">Cancel</button>
+      <button type="submit" [disabled]="countryForm.invalid">Save</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="map-container">
+    <google-map [options]="mapOptions" (mapClick)="onMapClick($event)">
+      <map-marker 
+        *ngFor="let store of stores" 
+        [position]="{ lat: store.latitude, lng: store.longitude }"
+        [title]="store.name"
+        (mapClick)="onStoreSelected(store)">
+      </map-marker>
+    </google-map>
+  </div>
+  <div class="form-container">
+    <form (ngSubmit)="addStore()">
+      <h2>Dodaj novu prodavnicu</h2>
+      <div>
+        <label for="name">Ime:</label>
+        <input id="name" [(ngModel)]="newStore.name" name="name" required>
+      </div>
+      <div>
+        <label for="address">Adresa:</label>
+        <input id="address" [(ngModel)]="newStore.address" name="address" required>
+      </div>
+      <div class="coordinates">
+        <div>
+          <label for="latitude">Latitude:</label>
+          <input id="latitude" [(ngModel)]="newStore.latitude" name="latitude" type="number" required>
+        </div>
+        <div>
+          <label for="longitude">Longitude:</label>
+          <input id="longitude" [(ngModel)]="newStore.longitude" name="longitude" type="number" required>
+        </div>
+      </div>
+      <div>
+        <label for="city">City:</label>
+        <input id="city" [(ngModel)]="newStore.city.name" name="city" required>
+      </div>
+      <button type="submit">Dodaj Prodavnicu</button>
+    </form>
+  </div>
+</div>
+
+<div class="store-list">
+  <h2>Prodavnice:</h2>
+  <ul>
+    <li *ngFor="let store of stores" [class.selected]="selectedStore?.id === store.id">
+      <div class="store-info" (click)="onStoreSelected(store)">
+        <strong>{{store.name}}</strong> - {{store.address}}
+      </div>
+      <div class="store-actions">
+        <button (click)="deleteStore(store.id)">Obriši</button>
+        <div class="file-input-wrapper">
+          <button class="file-input-button">Izaberi sliku</button>
+          <input type="file" (change)="onStoreImageSelected($event, store.id)" accept="image/*">
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

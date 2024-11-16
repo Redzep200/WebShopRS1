@@ -1,0 +1,66 @@
+<div class="orders-container" *ngIf="orders.length > 0; else noOrders">
+  <h2 *ngIf="!isEmployee" class="orders-title">{{'YOURORDERS' | translate}}</h2>
+  <h2 *ngIf="isEmployee" class="orders-title">{{'ORDERS' |  translate}}</h2>
+  <div *ngFor="let order of orders" class="order-item" [class.refunded]="order.state === 5">
+    <div class="order-header">
+      <div class="order-info">
+        <p *ngIf="isEmployee"><span class="order-label">Order ID:</span> {{ order.id }}</p>
+        <p>
+          <span class="order-label">{{'STATE' | translate}}</span> {{ getStateString(order.state) }}
+          <select *ngIf="isEmployee" (change)="updateOrderState(order.id, $event)">
+            <option *ngFor="let state of stateMapping | keyvalue" 
+                    [value]="state.key" 
+                    [selected]="order.state == state.key">
+              {{ state.value | translate }}
+            </option>
+          </select>
+        </p>
+        <p><span class="order-label">{{'TOTALPRICE' |translate}}</span> {{ order.orderPrice}} BAM</p>
+        <p><span class="order-label">{{'DATECREATED' |translate}}</span> {{ order.orderDate | date:'yyyy-MM-dd' }}</p>
+      </div>
+      <div class="toggle-arrow" (click)="toggleOrderItems(order.id)" [class.expanded]="expandedOrders[order.id]">
+        &#9660;
+      </div>
+    </div>
+
+    <div *ngIf="expandedOrders[order.id]" class="order-items">
+      <div *ngIf="!loadingItems[order.id]; else loadingItemsTemplate">
+        <h3>{{'ORDERITEMS' |translate}}</h3>
+        <table *ngIf="orderItems[order.id] && orderItems[order.id].length > 0; else noItemsTemplate">
+          <thead>
+            <tr>
+              <th>{{'PRODUCT' | translate}}</th>
+              <th>{{'QUANTITY' | translate}}</th>
+              <th>{{'PRICE' |translate}}</th>
+              <th>{{'TOTALPRICE' |translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of orderItems[order.id]">
+              <td>{{ item.product.name }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.price }} BAM</td>
+              <td>{{ item.totalPrice }} BAM</td>
+            </tr>
+          </tbody>
+        </table>
+        <button 
+  (click)="onRefund(order.id)" 
+  *ngIf="order.state !== 5">Refund Order
+</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noOrders>
+  <p class="no-orders-message">{{'NOORDERS'| translate}}</p>
+</ng-template>
+
+<ng-template #loadingItemsTemplate>
+  <p>Loading items...</p>
+</ng-template>
+
+<ng-template #noItemsTemplate>
+  <p>{{'NOITEMS' | translate}}</p>
+</ng-template>

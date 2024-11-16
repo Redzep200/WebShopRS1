@@ -1,0 +1,16 @@
+#dugme{
+    margin-top:5%;
+    margin-bottom: 4%;
+    width:100%;
+}
+.fa-user, .fa-lock, .fa-envelope{
+    color:blue;
+}
+
+.error span{
+    color:red;
+}
+
+.error input{
+    border:red solid;
+}

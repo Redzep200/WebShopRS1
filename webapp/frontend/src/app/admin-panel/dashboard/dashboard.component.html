@@ -1,0 +1,38 @@
+<div class="dashboard-container">
+
+    <span class="generate-report-button material-icons" (click)="generateReport()">
+        file_download
+      </span>
+  
+    <div *ngIf="reportData" class="dashboard">
+      
+      <div class="data-square">
+        <p>{{'Total Products' | translate}}: {{ reportData.productNumber }}</p>
+      </div>
+      
+      <div class="data-square">
+        <p>{{'Total Users' | translate}}: {{ reportData.userNumber }}</p>
+      </div>
+      
+      <div class="data-square">
+        <p>{{'Total Categories' | translate}}: {{ reportData.categoryNumber }}</p>
+      </div>
+      
+      <div class="data-square">
+        <p>{{'Most Recent User' | translate}}: {{ reportData.mostRecentUser }}</p>
+      </div>
+  
+      <div class="data-square">
+        <p>{{'Category with Most Products' | translate}}: {{ reportData.categoryWithMostProducts }} ({{ reportData.productCountInTopCategory }} products)</p>
+      </div>
+  
+      <div class="data-square">
+        <p>{{'Best Rated Product' | translate}}: {{ reportData.bestRatedProductName }} (Rating: {{ reportData.bestRatedProductRating }})</p>
+      </div>
+  
+      <div class="data-square">
+        <p>{{'Most Recent Comment by' | translate}} {{ reportData.mostRecentCommentUser }} on {{ reportData.mostRecentCommentProduct }}: "{{ reportData.mostRecentCommentContent }}" ({{'RATING' |  translate}}: {{ reportData.mostRecentCommentRating }}, {{'DATE' | translate}}: {{ reportData.mostRecentCommentDate | date: 'shortDate' }})</p>
+      </div>
+    </div>
+  </div>
+  

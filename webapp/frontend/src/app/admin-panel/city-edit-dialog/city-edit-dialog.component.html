@@ -1,0 +1,48 @@
+<div class="edit-dialog">
+  <h2>Edit City</h2>
+  <form #cityForm="ngForm" (ngSubmit)="onSaveClick()">
+    <div class="form-group">
+      <label for="cityName">City Name:</label>
+      <input 
+        id="cityName" 
+        name="cityName" 
+        [(ngModel)]="editedCity.name" 
+        required       
+        #cityName="ngModel">
+      <div *ngIf="cityName?.invalid && cityName?.touched">
+        <small *ngIf="cityName?.errors?.['required']">City Name is required.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="zipCode">Zip Code:</label>
+      <input 
+        id="zipCode" 
+        name="zipCode" 
+        [(ngModel)]="editedCity.zipCode" 
+        required 
+        pattern="^[0-9]{5}$" 
+        #zipCode="ngModel">
+      <div *ngIf="zipCode?.invalid && zipCode?.touched">
+        <small *ngIf="zipCode?.errors?.['required']">Zip Code is required.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="country">Country:</label>
+      <select 
+        id="country" 
+        name="country" 
+        [(ngModel)]="editedCity.countryId" 
+        required 
+        #country="ngModel">
+        <option *ngFor="let country of data.countries" [value]="country.id">{{ country.name }}</option>
+      </select>
+      <div *ngIf="country?.invalid && country?.touched">
+        <small *ngIf="country?.errors?.['required']">Country is required.</small>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="button" (click)="onNoClick()">Cancel</button>
+      <button type="submit" [disabled]="cityForm.invalid">Save</button>
+    </div>
+  </form>
+</div>
